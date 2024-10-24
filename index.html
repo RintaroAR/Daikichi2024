@@ -38,14 +38,16 @@
         </a-scene>
 
         <div id="controls">
-            <button id="toggleRotation">回転</button>
+            <button id="toggleRotationX">縦回転</button>
+            <button id="toggleRotationZ">横回転</button>
             <button id="scaleUp">拡大</button>
             <button id="scaleDown">縮小</button>
         </div>
 
         <script>
             // モデルの回転を制御するフラグと速度
-            let rotating = false;
+            let rotatingZ = false; // Z軸回転フラグ
+            let rotatingX = false; // X軸回転フラグ
             const rotationSpeed = 1; // 回転の速度
 
             // モデルの参照
@@ -53,17 +55,28 @@
 
             // 回転を制御する関数
             function rotateModel() {
-                if (rotating) {
-                    const rotation = model.getAttribute('rotation');
+                const rotation = model.getAttribute('rotation');
+                
+                if (rotatingZ) {
                     rotation.z += rotationSpeed; // Z軸を中心に回転
-                    model.setAttribute('rotation', rotation);
                 }
+
+                if (rotatingX) {
+                    rotation.x += rotationSpeed; // X軸を中心に回転
+                }
+
+                model.setAttribute('rotation', rotation);
                 requestAnimationFrame(rotateModel); // 次のフレームで再び呼び出す
             }
 
-            // 回転開始/停止を切り替えるボタンのイベントリスナー
-            document.getElementById('toggleRotation').addEventListener('click', () => {
-                rotating = !rotating; // 回転フラグを反転
+            // Z軸回転開始/停止を切り替えるボタンのイベントリスナー
+            document.getElementById('toggleRotationZ').addEventListener('click', () => {
+                rotatingZ = !rotatingZ; // Z軸回転フラグを反転
+            });
+
+            // X軸回転開始/停止を切り替えるボタンのイベントリスナー
+            document.getElementById('toggleRotationX').addEventListener('click', () => {
+                rotatingX = !rotatingX; // X軸回転フラグを反転
             });
 
             // 拡大ボタンのイベントリスナー
