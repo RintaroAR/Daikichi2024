@@ -38,14 +38,14 @@
         </a-scene>
 
         <div id="controls">
-            <button id="startRotation">回転開始</button>
-            <button id="stopRotation">回転停止</button>
+            <button id="startRotation">回転</button>
+            <button id="stopRotation">停止</button>
         </div>
 
         <script>
             // モデルの回転を制御するフラグと速度
             let rotating = false;
-            const rotationSpeed = 1; // 回転の速度
+            const rotationSpeed = 0.5; // 回転の速度
 
             // モデルの参照
             const model = document.getElementById('model');
@@ -54,7 +54,7 @@
             function rotateModel() {
                 if (rotating) {
                     const rotation = model.getAttribute('rotation');
-                    rotation.x += rotationSpeed; // X軸を中心に回転
+                    rotation.z += rotationSpeed; // Z軸を中心に回転
                     model.setAttribute('rotation', rotation);
                 }
                 requestAnimationFrame(rotateModel); // 次のフレームで再び呼び出す
