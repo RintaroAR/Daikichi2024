@@ -32,8 +32,7 @@
                 <a-asset-item id="mtl" src="obj.mtl"></a-asset-item>
             </a-assets>
             <a-marker type="pattern" url="pattern-sei.patt">
-                <a-obj-model id="model" src="#obj" mtl="#mtl" scale="0.1 0.1 0.1" rotation="0 180 0" position="0 0 0"
-                    class="draggable"></a-obj-model>
+                <a-obj-model id="model" src="#obj" mtl="#mtl" scale="0.1 0.1 0.1" rotation="0 180 0" position="0 0 0"></a-obj-model>
             </a-marker>
             <a-entity camera></a-entity>
         </a-scene>
@@ -83,37 +82,6 @@
                 scale.y = Math.max(0.01, scale.y - 0.01);
                 scale.z = Math.max(0.01, scale.z - 0.01);
                 model.setAttribute('scale', scale); // モデルを縮小
-            });
-
-            // モデルをドラッグするための変数
-            let isDragging = false;
-            let previousMousePosition = null;
-
-            // モデルをドラッグ開始
-            model.addEventListener('mousedown', (event) => {
-                isDragging = true;
-                previousMousePosition = { x: event.clientX, y: event.clientY };
-            });
-
-            // モデルをドラッグ中
-            window.addEventListener('mousemove', (event) => {
-                if (isDragging) {
-                    const deltaX = event.clientX - previousMousePosition.x;
-                    const deltaY = event.clientY - previousMousePosition.y;
-                    const position = model.getAttribute('position');
-
-                    // モデルを移動させる
-                    position.x += deltaX * 0.01; // 移動のスケールを調整
-                    position.y -= deltaY * 0.01; // 移動のスケールを調整（逆方向）
-                    model.setAttribute('position', position);
-
-                    previousMousePosition = { x: event.clientX, y: event.clientY };
-                }
-            });
-
-            // モデルをドラッグ終了
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
             });
 
             // 初期状態で回転を制御する関数を呼び出す
