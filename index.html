@@ -41,6 +41,7 @@
             <button id="toggleRotation">回転</button>
             <button id="scaleUp">拡大</button>
             <button id="scaleDown">縮小</button>
+            <button id="captureScreenshot">撮影</button>
         </div>
 
         <script>
@@ -82,6 +83,20 @@
                 scale.y = Math.max(0.01, scale.y - 0.01);
                 scale.z = Math.max(0.01, scale.z - 0.01);
                 model.setAttribute('scale', scale); // モデルを縮小
+            });
+
+            // 撮影ボタンのイベントリスナー
+            document.getElementById('captureScreenshot').addEventListener('click', () => {
+                const canvas = document.querySelector('canvas');
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'screenshot.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
             });
 
             // 初期状態で回転を制御する関数を呼び出す
