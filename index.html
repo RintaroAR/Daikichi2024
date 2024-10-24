@@ -46,7 +46,7 @@
         <script>
             // モデルの回転を制御するフラグと速度
             let rotating = false;
-            const rotationSpeed = 0.5; // 回転の速度
+            const rotationSpeed = 1; // 回転の速度
 
             // モデルの参照
             const model = document.getElementById('model');
@@ -69,18 +69,18 @@
             // 拡大ボタンのイベントリスナー
             document.getElementById('scaleUp').addEventListener('click', () => {
                 const scale = model.getAttribute('scale');
-                scale.x += 0.1;
-                scale.y += 0.1;
-                scale.z += 0.1;
+                scale.x += 0.01;
+                scale.y += 0.01;
+                scale.z += 0.01;
                 model.setAttribute('scale', scale); // モデルを拡大
             });
 
             // 縮小ボタンのイベントリスナー
             document.getElementById('scaleDown').addEventListener('click', () => {
                 const scale = model.getAttribute('scale');
-                scale.x = Math.max(0.1, scale.x - 0.1);
-                scale.y = Math.max(0.1, scale.y - 0.1);
-                scale.z = Math.max(0.1, scale.z - 0.1);
+                scale.x = Math.max(0.01, scale.x - 0.01);
+                scale.y = Math.max(0.01, scale.y - 0.01);
+                scale.z = Math.max(0.01, scale.z - 0.01);
                 model.setAttribute('scale', scale); // モデルを縮小
             });
 
