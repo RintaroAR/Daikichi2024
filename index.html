@@ -38,8 +38,9 @@
         </a-scene>
 
         <div id="controls">
-            <button id="startRotation">回転</button>
-            <button id="stopRotation">停止</button>
+            <button id="toggleRotation">回転</button>
+            <button id="scaleUp">拡大</button>
+            <button id="scaleDown">縮小</button>
         </div>
 
         <script>
@@ -60,14 +61,27 @@
                 requestAnimationFrame(rotateModel); // 次のフレームで再び呼び出す
             }
 
-            // 回転開始ボタンのイベントリスナー
-            document.getElementById('startRotation').addEventListener('click', () => {
-                rotating = true; // 回転を開始
+            // 回転開始/停止を切り替えるボタンのイベントリスナー
+            document.getElementById('toggleRotation').addEventListener('click', () => {
+                rotating = !rotating; // 回転フラグを反転
             });
 
-            // 回転停止ボタンのイベントリスナー
-            document.getElementById('stopRotation').addEventListener('click', () => {
-                rotating = false; // 回転を停止
+            // 拡大ボタンのイベントリスナー
+            document.getElementById('scaleUp').addEventListener('click', () => {
+                const scale = model.getAttribute('scale');
+                scale.x += 0.1;
+                scale.y += 0.1;
+                scale.z += 0.1;
+                model.setAttribute('scale', scale); // モデルを拡大
+            });
+
+            // 縮小ボタンのイベントリスナー
+            document.getElementById('scaleDown').addEventListener('click', () => {
+                const scale = model.getAttribute('scale');
+                scale.x = Math.max(0.1, scale.x - 0.1);
+                scale.y = Math.max(0.1, scale.y - 0.1);
+                scale.z = Math.max(0.1, scale.z - 0.1);
+                model.setAttribute('scale', scale); // モデルを縮小
             });
 
             // 初期状態で回転を制御する関数を呼び出す
